@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adm1tos.github.io/Accords/sitemap.xml
