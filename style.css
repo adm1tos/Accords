@@ -447,3 +447,16 @@ body {
   );
   animation: note-pulse 0.8s ease-out infinite;
 }
+
+
+.footer-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+  color: #9cd7f1;
+  text-decoration: underline;
+}
