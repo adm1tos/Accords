@@ -1,0 +1,449 @@
+:root {
+  --bg: #050816;
+  --bg-card: #0f172a;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.15);
+  --text: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border: #1f2937;
+  --radius-xl: 1.25rem;
+  --shadow-soft: 0 20px 40px rgba(15, 23, 42, 0.8);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1d2537 0, #020617 55%, #000 100%);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.app {
+  width: 100%;
+  max-width: 900px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.94));
+  border-radius: 1.75rem;
+  padding: 24px 24px 20px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  backdrop-filter: blur(18px);
+}
+
+@media (min-width: 768px) {
+  .app {
+    padding: 28px 32px 24px;
+  }
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.app-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.app-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.scale-pill {
+  font-size: 0.8rem;
+  color: var(--accent);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  background: radial-gradient(circle at top left, var(--accent-soft), transparent);
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .grid.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.card {
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  padding: 18px 16px 16px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.card + .card {
+  margin-top: 16px;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 55%),
+    radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.10), transparent 55%);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.card-title {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title span.badge {
+  font-size: 0.75rem;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: var(--text-muted);
+}
+
+.card-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.axis-pill {
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.field input {
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.92);
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.field input::placeholder {
+  color: #4b5563;
+}
+
+.field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+  background: #020617;
+}
+
+/* Блок команды */
+
+.card-command {
+  margin-top: 18px;
+}
+
+#commandInput {
+  width: 100%;
+  resize: vertical;
+  min-height: 48px;
+  max-height: 140px;
+  padding: 9px 10px;
+  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.92);
+  color: var(--text);
+  font-size: 0.9rem;
+  outline: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+#commandInput::placeholder {
+  color: #4b5563;
+}
+
+#commandInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+  background: #020617;
+}
+
+.command-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+#commandApplyBtn {
+  border: none;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.9), rgba(37, 99, 235, 0.9));
+  color: #0b1120;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.8);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+#commandApplyBtn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 14px 26px rgba(15, 23, 42, 0.9);
+}
+
+#commandApplyBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.8);
+}
+
+.command-tip {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.command-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(31, 41, 55, 0.9);
+}
+
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+}
+
+.legend-dot.overworld {
+  background: #22c55e;
+}
+
+.legend-dot.nether {
+  background: #ef4444;
+}
+
+.footer-tip {
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .scale-pill {
+    align-self: flex-start;
+  }
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/*ОШИБКА КОМАНДЫ*/
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-4px); }
+  40%  { transform: translateX(4px); }
+  60%  { transform: translateX(-3px); }
+  80%  { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+#commandInput.shake {
+  animation: shake 0.25s ease-in-out;
+  border-color: #f97373;
+  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.5);
+}
+
+/* Распознавать мир по ссылоке незер или оверворлд */
+
+#commandInput.world-overworld {
+  border-color: #22c55e !important;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6) !important;
+}
+
+#commandInput.world-nether {
+  border-color: #4e0b0b !important;
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.6) !important;
+}
+
+
+/* Кнопка-нота в заголовке */
+
+.note-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.12);
+  cursor: pointer;
+  outline: none;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease,
+    filter 0.15s ease;
+}
+
+.note-icon {
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+/* ховер — как кнопка, видно что кликается */
+.note-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.9);
+  filter: brightness(1.05);
+}
+
+/* активное состояние при клике */
+.note-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.8);
+}
+
+/* фокус по табу */
+.note-button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.8);
+}
+
+/* лёгкий пульс когда звук играет */
+@keyframes note-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.0);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.25);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.0);
+  }
+}
+
+.note-button.is-playing {
+  border-color: rgba(129, 140, 248, 0.9);
+  background: radial-gradient(circle at top left,
+    rgba(56, 189, 248, 0.35),
+    rgba(37, 99, 235, 0.15)
+  );
+  animation: note-pulse 0.8s ease-out infinite;
+}

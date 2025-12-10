@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Accords</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="app-title-block">
+        <div class="app-title">
+            <span>Accords</span>
+            <button class="note-button" id="noteButton" type="button" aria-label="Проиграть звук">
+                <span class="note-icon">♪</span>
+            </button>
+        </div>
+        <p class="app-subtitle">
+          Калькулятор координат обычного мира в координаты незера. Или наоборот?
+        </p>
+        <!--<p class="app-subtitle">
+          Если получаются десятые - округляй в большую сторону
+        </p>-->
+      </div>
+      <div class="scale-pill">
+        Масштаб: <strong>Обычный / 8 = Незер</strong>
+      </div>
+    </header>
+
+    <main class="grid two">
+      <!-- Обычный мир -->
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-title">
+              <span>Обычный мир</span>
+              <!--<span class="badge">Overworld</span>-->
+            </div>
+            <div class="card-note">Координаты в обычном мире</div>
+          </div>
+
+          <div class="field-group">
+            <div class="field">
+              <div class="field-label-row">
+                <span class="axis-pill">X</span>
+                <!--<span>Блок по оси X</span>-->
+              </div>
+              <input id="overworldX" type="number" step="0.01" placeholder="Например, 1200"
+                     autocomplete="off" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <div class="field-label-row">
+                <span class="axis-pill">Z</span>
+                <!--<span>Блок по оси Z</span>-->
+              </div>
+              <input id="overworldZ" type="number" step="0.01" placeholder="Например, -360"
+                     autocomplete="off" inputmode="decimal" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Незер -->
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-title">
+              <span>Незер мир</span>
+              <!--<span class="badge">Nether</span>-->
+            </div>
+            <div class="card-note">Координаты портала в незере</div>
+          </div>
+
+          <div class="field-group">
+            <div class="field">
+              <div class="field-label-row">
+                <span class="axis-pill">X</span>
+                <!--<span>Блок по оси X</span>-->
+              </div>
+              <input id="netherX" type="number" step="0.01" placeholder="Получится 150"
+                     autocomplete="off" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <div class="field-label-row">
+                <span class="axis-pill">Z</span>
+                <!--<span>Блок по оси Z</span>-->
+              </div>
+              <input id="netherZ" type="number" step="0.01" placeholder="Получится -360/8"
+                     autocomplete="off" inputmode="decimal" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Блок для вставки команды F3 + C -->
+    <section class="card card-command">
+      <div class="card-inner">
+        <div class="card-header">
+          <div class="card-title">
+            <span>Вставка из игры</span>
+            <span class="badge">F3 + C</span>
+          </div>
+          <div class="card-note">
+             Нажми F3 + C в игре и вставь сюда команду из буфера обмена. По идее всё должно само встать.
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <div class="field-label-row">
+              <span>Команда /execute ...</span>
+              <!--<span class="command-hint">Поддерживается overworld и the_nether</span>-->
+            </div>
+            <textarea id="commandInput" rows="2"
+                      placeholder="/execute in minecraft:overworld run tp @s -2305.57 55.00 -950.64 383.62 1.81"></textarea>
+          </div>
+
+          <div class="command-actions">
+            <button id="commandApplyBtn" type="button">Заполнить координаты</button>
+            <span class="command-tip">
+              Спасибо репортам за то, что популяризировали такую чудную команду
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-legend">
+        <div class="legend-item">
+          <span class="legend-dot overworld"></span>
+          <span>сделал <strong>adm1tos</strong></span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot nether"></span>
+          <span>Тут что-то будет</span>
+        </div>
+      </div>
+      <div class="footer-tip">
+        завтра в 3
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
