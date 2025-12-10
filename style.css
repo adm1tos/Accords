@@ -1,3 +1,7 @@
+/* =========================
+   БАЗА И ПЕРЕМЕННЫЕ
+   ========================= */
+
 :root {
   --bg: #050816;
   --bg-card: #0f172a;
@@ -27,6 +31,10 @@ body {
   padding: 24px;
 }
 
+/* =========================
+   ОБОЛОЧКА ПРИЛОЖЕНИЯ
+   ========================= */
+
 .app {
   width: 100%;
   max-width: 900px;
@@ -43,6 +51,10 @@ body {
     padding: 28px 32px 24px;
   }
 }
+
+/* =========================
+   ХЕДЕР
+   ========================= */
 
 .app-header {
   display: flex;
@@ -93,6 +105,75 @@ body {
   white-space: nowrap;
 }
 
+/* Кнопка-нота в заголовке */
+
+.note-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.12);
+  cursor: pointer;
+  outline: none;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease,
+    filter 0.15s ease;
+}
+
+.note-icon {
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.note-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.9);
+  filter: brightness(1.05);
+}
+
+.note-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.8);
+}
+
+.note-button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.8);
+}
+
+@keyframes note-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.25);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+}
+
+.note-button.is-playing {
+  border-color: rgba(129, 140, 248, 0.9);
+  background: radial-gradient(circle at top left,
+    rgba(56, 189, 248, 0.35),
+    rgba(37, 99, 235, 0.15)
+  );
+  animation: note-pulse 0.8s ease-out infinite;
+}
+
+/* =========================
+   СЕТКА И КАРТОЧКИ
+   ========================= */
+
 .grid {
   display: grid;
   gap: 16px;
@@ -104,6 +185,20 @@ body {
   }
 }
 
+/* Выравнивание карточек по высоте для двух верхних */
+.grid.two {
+  align-items: stretch;
+}
+
+.grid.two > .card {
+  margin-top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Базовая карточка */
+
 .card {
   background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
   border-radius: var(--radius-xl);
@@ -114,8 +209,14 @@ body {
   margin-top: 0;
 }
 
+/* Отступ между карточками вне сетки two */
 .card + .card {
   margin-top: 16px;
+}
+
+/* Убираем отступ между двумя верхними карточками */
+.grid.two > .card + .card {
+  margin-top: 0;
 }
 
 .card::before {
@@ -124,7 +225,7 @@ body {
   inset: -30%;
   background:
     radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 55%),
-    radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.10), transparent 55%);
+    radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.1), transparent 55%);
   opacity: 0.9;
   pointer-events: none;
   z-index: 0;
@@ -133,6 +234,9 @@ body {
 .card-inner {
   position: relative;
   z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header {
@@ -163,6 +267,10 @@ body {
   font-size: 0.8rem;
   color: var(--text-muted);
 }
+
+/* =========================
+   ПОЛЯ И ИНПУТЫ
+   ========================= */
 
 .field-group {
   display: flex;
@@ -217,7 +325,60 @@ body {
   background: #020617;
 }
 
-/* Блок команды */
+/* Кнопки "Скопировать X ~ Z" */
+
+.copy-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.copy-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.9);
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(30, 64, 175, 0.7);
+  border-color: var(--accent);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.9);
+  transform: translateY(-1px);
+}
+
+.copy-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.8);
+}
+
+.copy-btn.copied {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6);
+}
+
+.copy-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* =========================
+   БЛОК КОМАНДЫ F3+C
+   ========================= */
 
 .card-command {
   margin-top: 18px;
@@ -235,7 +396,8 @@ body {
   color: var(--text);
   font-size: 0.9rem;
   outline: none;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 }
 
 #commandInput::placeholder {
@@ -290,6 +452,10 @@ body {
   color: var(--text-muted);
 }
 
+/* =========================
+   ФУТЕР
+   ========================= */
+
 .footer {
   margin-top: 16px;
   display: flex;
@@ -335,21 +501,43 @@ body {
   opacity: 0.85;
 }
 
+.footer-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+  color: #9cd7f1;
+  text-decoration: underline;
+}
+
+/* =========================
+   АДАПТИВ
+   ========================= */
+
 @media (max-width: 600px) {
   .app-header {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .scale-pill {
     align-self: flex-start;
   }
+
   .footer {
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
-/*ОШИБКА КОМАНДЫ*/
+/* =========================
+   АНИМАЦИИ / СОСТОЯНИЯ
+   ========================= */
+
+/* Ошибка команды */
 
 @keyframes shake {
   0%   { transform: translateX(0); }
@@ -366,7 +554,7 @@ body {
   box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.5);
 }
 
-/* Распознавать мир по ссылоке незер или оверворлд */
+/* Распознавание мира по команде */
 
 #commandInput.world-overworld {
   border-color: #22c55e !important;
@@ -376,87 +564,4 @@ body {
 #commandInput.world-nether {
   border-color: #4e0b0b !important;
   box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.6) !important;
-}
-
-
-/* Кнопка-нота в заголовке */
-
-.note-button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  background: rgba(56, 189, 248, 0.12);
-  cursor: pointer;
-  outline: none;
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease,
-    background 0.15s ease,
-    filter 0.15s ease;
-}
-
-.note-icon {
-  font-size: 0.9rem;
-  color: var(--accent);
-}
-
-/* ховер — как кнопка, видно что кликается */
-.note-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.9);
-  filter: brightness(1.05);
-}
-
-/* активное состояние при клике */
-.note-button:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.8);
-}
-
-/* фокус по табу */
-.note-button:focus-visible {
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.8);
-}
-
-/* лёгкий пульс когда звук играет */
-@keyframes note-pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.0);
-  }
-  50% {
-    transform: scale(1.06);
-    box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.25);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.0);
-  }
-}
-
-.note-button.is-playing {
-  border-color: rgba(129, 140, 248, 0.9);
-  background: radial-gradient(circle at top left,
-    rgba(56, 189, 248, 0.35),
-    rgba(37, 99, 235, 0.15)
-  );
-  animation: note-pulse 0.8s ease-out infinite;
-}
-
-
-.footer-link {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.15s ease;
-}
-
-.footer-link:hover {
-  color: #9cd7f1;
-  text-decoration: underline;
 }

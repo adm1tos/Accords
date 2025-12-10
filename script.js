@@ -10,7 +10,10 @@
   const commandInput = document.getElementById("commandInput");
   const commandApplyBtn = document.getElementById("commandApplyBtn");
 
-  /* ---------- Вспомогательные функции ---------- */
+  const copyOverworldBtn = document.getElementById("copyOverworldBtn");
+  const copyNetherBtn = document.getElementById("copyNetherBtn");
+
+  /*Проверки и тд*/
 
   function parseNumber(value) {
     if (!value) return NaN;
@@ -28,7 +31,7 @@
     input.value = format(value);
   }
 
-  /* ---------- Авторасчёт ---------- */
+  /*Расчёт */
 
   function handleChange(source) {
     if (isUpdating) return;
@@ -65,7 +68,7 @@
   nX.addEventListener("input", () => handleChange("netherX"));
   nZ.addEventListener("input", () => handleChange("netherZ"));
 
-  /* ---------- Разбор команды F3+C ---------- */
+  /*Разбираю F3 + C*/
 
   function parseF3CCommand(cmd) {
     if (!cmd || typeof cmd !== "string") return null;
@@ -92,7 +95,7 @@
     return { world, x, y, z };
   }
 
-  /* ---------- Живая подсветка рамки ---------- */
+  /*Подсветка рамки в зависимости от мира в команде*/
 
   function updateCommandHighlight() {
     const cmd = commandInput.value;
@@ -108,7 +111,7 @@
 
   commandInput.addEventListener("input", updateCommandHighlight);
 
-  /* ---------- Применение команды ---------- */
+  /*Вставка координат из команды*/
 
   function applyCommand() {
     const parsed = parseF3CCommand(commandInput.value);
@@ -142,7 +145,68 @@
     }
   });
 
-  /* НОТА В ШАПКЕ */
+  // Копирование
+
+  function copyCoords(world) {
+    let xInput, zInput, btn;
+
+    if (world === "overworld") {
+      xInput = owX;
+      zInput = owZ;
+      btn = copyOverworldBtn;
+    } else {
+      xInput = nX;
+      zInput = nZ;
+      btn = copyNetherBtn;
+    }
+
+    if (!xInput || !zInput || !btn) return;
+
+    const x = parseNumber(xInput.value);
+    const z = parseNumber(zInput.value);
+
+    if (!Number.isFinite(x) || !Number.isFinite(z)) {
+      //ПИНОКК
+      btn.classList.add("shake");
+      setTimeout(() => btn.classList.remove("shake"), 250);
+      return;
+    }
+
+    const text = `${format(x)} ~ ${format(z)}`;
+
+    const onSuccess = () => {
+      btn.classList.add("copied");
+      setTimeout(() => btn.classList.remove("copied"), 600);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onSuccess).catch(() => {});
+    } else {
+      // старое
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        onSuccess();
+      } catch (err) {
+        // ignore
+      }
+      document.body.removeChild(textarea);
+    }
+  }
+
+  if (copyOverworldBtn) {
+    copyOverworldBtn.addEventListener("click", () => copyCoords("overworld"));
+  }
+  if (copyNetherBtn) {
+    copyNetherBtn.addEventListener("click", () => copyCoords("nether"));
+  }
+
+  //пук
 
   const noteButton = document.getElementById("noteButton");
   if (noteButton) {
@@ -150,7 +214,6 @@
     noteAudio.volume = 0.9;
 
     noteButton.addEventListener("click", () => {
-      // если уже играет — перематываем и опять с начала
       if (!noteAudio.paused) {
         noteAudio.currentTime = 0;
       }
@@ -161,7 +224,7 @@
           noteButton.classList.add("is-playing");
         })
         .catch(() => {
-          // если браузер что-то запретил — просто молча игнорим
+          // браузер может заблокировать автоплей, игнорим
         });
     });
 
